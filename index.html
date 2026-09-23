@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Sobia 🌸</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fff0f6, #fce4ec, #f8e8ff);
+            color: #4a3540;
+        }
+
+        /* Background glow */
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.35;
+            z-index: -1;
+        }
+
+        body::before {
+            background: #ff9fc5;
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            background: #cda4ff;
+            bottom: -100px;
+            right: -100px;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: fixed;
+            bottom: -30px;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatUp linear forwards;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(25deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            width: 92%;
+            max-width: 650px;
+            margin: 30px auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            padding: 45px 30px;
+            box-shadow: 0 20px 60px rgba(160, 90, 130, 0.18);
+            animation: appear 1s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .flower {
+            font-size: 48px;
+            animation: gentle 2.5s ease-in-out infinite;
+        }
+
+        @keyframes gentle {
+            0%, 100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg) scale(1.08);
+            }
+        }
+
+        h1 {
+            margin-top: 12px;
+            font-size: 38px;
+            color: #c94f82;
+        }
+
+        .subtitle {
+            margin-top: 12px;
+            font-size: 18px;
+            color: #765665;
+            line-height: 1.7;
+        }
+
+        .typing {
+            margin: 25px auto;
+            min-height: 55px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #9d426d;
+        }
+
+        .question {
+            margin-top: 25px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #553946;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            margin-top: 25px;
+        }
+
+        button {
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            background: white;
+            color: #6c3e53;
+            box-shadow: 0 7px 20px rgba(160, 80, 120, 0.12);
+            transition: all 0.25s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(160, 80, 120, 0.2);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .response {
+            display: none;
+            margin-top: 28px;
+            padding: 20px;
+            background: rgba(255, 240, 247, 0.9);
+            border-radius: 20px;
+            font-size: 17px;
+            line-height: 1.7;
+            animation: responseIn 0.5s ease;
+        }
+
+        @keyframes responseIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .surprise-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, #e96b9a, #c85c91);
+            color: white;
+            font-weight: 600;
+            padding: 15px 28px;
+        }
+
+        .surprise-btn:hover {
+            background: linear-gradient(135deg, #df5d8d, #b94f83);
+        }
+
+        .surprise {
+            display: none;
+            margin-top: 25px;
+            animation: appear 0.7s ease;
+        }
+
+        .surprise h2 {
+            color: #c94f82;
+            margin-bottom: 10px;
+        }
+
+        .surprise p {
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #9b7b89;
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 35px 20px;
+                border-radius: 25px;
+            }
+
+            h1 {
+                font-size: 31px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .question {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="flower">🌸</div>
+
+            <h1>Hello Sobia Latif 💕</h1>
+
+            <p class="subtitle">
+                How are you?  
+                <br>
+                Kaisa gaya aapka din aaj? 🌷
+            </p>
+
+            <div class="typing" id="typing"></div>
+
+            <div class="question">
+                Aaj ka mood kaisa hai? 💭
+            </div>
+
+            <div class="buttons">
+
+                <button onclick="showResponse('good')">
+                    😊 Bohat acha tha
+                </button>
+
+                <button onclick="showResponse('okay')">
+                    🙂 Theek tha, normal sa
+                </button>
+
+                <button onclick="showResponse('bad')">
+                    🥺 Thora mushkil tha
+                </button>
+
+            </div>
+
+            <div class="response" id="response"></div>
+
+            <button class="surprise-btn" onclick="showSurprise()">
+                ✨ Ek choti si baat...
+            </button>
+
+            <div class="surprise" id="surprise">
+
+                <h2>🌷 Just a little reminder</h2>
+
+                <p>
+                    Har din perfect hona zaroori nahi hota.
+                    Kabhi din bohat acha hota hai,
+                    kabhi bas guzar jata hai...
+                    aur kabhi thora mushkil bhi hota hai.
+                    <br><br>
+                    Bas apna khayal rakha karo,
+                    thora smile kiya karo 😊
+                    aur yaad rakho —
+                    <br>
+                    <strong>kal ek naya din hai. 💗</strong>
+                </p>
+
+            </div>
+
+            <div class="footer">
+                Made with a little thought & lots of good vibes 🌸
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* Typing effect */
+
+        const text =
+            "Umeed hai aaj ka din aapke liye acha raha hoga... aur agar nahi raha, toh hopefully ab thori si smile aa jaye 😊";
+
+        let index = 0;
+
+        function typeText() {
+
+            if (index < text.length) {
+
+                document.getElementById("typing").innerHTML += text.charAt(index);
+
+                index++;
+
+                setTimeout(typeText, 35);
+
+            }
+
+        }
+
+        typeText();
+
+
+        /* Mood responses */
+
+        function showResponse(type) {
+
+            const response = document.getElementById("response");
+
+            response.style.display = "block";
+
+            if (type === "good") {
+
+                response.innerHTML =
+                    "Yayyy! 😄 Ye sun kar acha laga. Aise hi khush raha karo, kyunki happy Sobia = good vibes ✨💗";
+
+            }
+
+            else if (type === "okay") {
+
+                response.innerHTML =
+                    "Normal days bhi zaroori hote hain 😌 Har din exciting hona zaroori nahi. Bas umeed hai kal ka din thora aur acha ho 🌷";
+
+            }
+
+            else {
+
+                response.innerHTML =
+                    "Aww 🥺 Agar din mushkil tha toh koi baat nahi. Har bad day ka matlab bad life nahi hota. Thora rest, thori si chai ☕ aur kal fresh start. 💗";
+
+            }
+
+            /* Small heart burst */
+
+            for (let i = 0; i < 8; i++) {
+                createHeart();
+            }
+        }
+
+
+        /* Surprise */
+
+        function showSurprise() {
+
+            const surprise = document.getElementById("surprise");
+
+            surprise.style.display = "block";
+
+            for (let i = 0; i < 15; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+
+        }
+
+
+        /* Floating hearts */
+
+        function createHeart() {
+
+            const heart = document.createElement("div");
+
+            heart.classList.add("heart");
+
+            const hearts = ["💗", "💕", "🌸", "✨", "💖"];
+
+            heart.innerHTML =
+                hearts[Math.floor(Math.random() * hearts.length)];
+
+            heart.style.left = Math.random() * 100 + "vw";
+
+            heart.style.animationDuration =
+                (4 + Math.random() * 5) + "s";
+
+            heart.style.fontSize =
+                (15 + Math.random() * 15) + "px";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 9000);
+
+        }
+
+
+        /* Random hearts continuously */
+
+        setInterval(() => {
+
+            if (Math.random() > 0.4) {
+                createHeart();
+            }
+
+        }, 1200);
+
+    </script>
+
+</body>
+</html>
